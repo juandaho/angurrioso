@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angurriosos para N Jugadores</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
@@ -12,7 +13,9 @@
             <label for="numeroJugadores">Número de jugadores:</label>
             <input type="number" id="numeroJugadores" min="2" value="2">
             <button id="definirJugadores">Definir Jugadores</button>
-            <div id="nombresJugadores"></div>
+            <div id="nombresJugadores">
+                <!-- Los campos para los nombres de los jugadores se generarán aquí -->
+            </div>
             <label for="puntosObjetivo">Puntos para ganar:</label>
             <input type="number" id="puntosObjetivo" value="100">
             <button id="iniciarJuego" disabled>Iniciar Juego</button>
@@ -36,7 +39,9 @@
                     <th>Puntos Faltantes</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                <!-- Las filas se agregarán dinámicamente -->
+            </tbody>
         </table>
     </div>
     <script src="angurriosos.js"></script>
