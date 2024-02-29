@@ -24,22 +24,26 @@ document.getElementById('iniciarJuego').addEventListener('click', function() {
     puntosJugadores = new Array(numeroJugadores).fill(0);
     nombresJugadores = [];
     for (let i = 1; i <= numeroJugadores; i++) {
-        nombresJugadores.push(document.getElementById(`nombreJugador${i}`).value || `Jugador ${i}`);
+        nombresJugadores.push(document.getElementById(`nombreJugador${i}`).value.trim() || `Jugador ${i}`);
     }
     jugadorActual = 1;
+    puntosRonda = 0;
     document.getElementById('jugadorActual').innerText = nombresJugadores[jugadorActual - 1];
+    document.getElementById('puntosRonda').innerText = puntosRonda;
     document.getElementById('ingresarDado').disabled = false;
     document.getElementById('parar').disabled = false;
     actualizarTablaProgreso();
 });
 
 document.getElementById('ingresarDado').addEventListener('click', function() {
-    const resultado = parseInt(document.getElementById('resultadoDado').value, 10);
-    if(resultado < 1 || resultado > 6) {
+    const resultadoDado = document.getElementById('resultadoDado');
+    const resultado = parseInt(resultadoDado.value, 10);
+    resultadoDado.value = ''; // Limpiar el input después de obtener el valor
+    if (isNaN(resultado) || resultado < 1 || resultado > 6) {
         alert('Por favor, ingresa un número válido entre 1 y 6.');
         return;
     }
-    if(resultado === 1) {
+    if (resultado === 1) {
         alert(`Lo siento, ${nombresJugadores[jugadorActual - 1]}, sacaste 1. Pierdes tus puntos de esta ronda.`);
         puntosRonda = 0;
         siguienteJugador();
@@ -67,9 +71,9 @@ function actualizarTablaProgreso() {
     const tbody = document.getElementById('tablaProgreso').querySelector('tbody');
     tbody.innerHTML = '';
     puntosJugadores.forEach((puntos, index) => {
+        const puntosFaltantes = objetivo - puntos;
         const tr = document.createElement('tr');
-        const puntosFaltantes = objetivo - puntos > 0 ? objetivo - puntos : '---';
-        tr.innerHTML = `<td>${nombresJugadores[index]}</td><td>${puntos}</td><td>${puntosFaltantes}</td>`;
+        tr.innerHTML = `<td>${nombresJugadores[index]}</td><td>${puntos}</td><td>${puntosFaltantes > 0 ? puntosFaltantes : '---'}</td>`;
         tbody.appendChild(tr);
     });
 }
